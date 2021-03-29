@@ -3,18 +3,39 @@
     @model IEnumerable<Teams>
 }
 
-<a class="btn btn-primary w-100" asp-controller="Home" asp-action="Index" asp-route-teamnameid="">Home</a>
-<br />
-<br />
+@*Highlight the home page if it has been selected.*@
+@if (ViewBag.TeamName is null)
+{
+    <a class="btn btn-primary w-100" asp-controller="Home" asp-action="Index" asp-route-teamnameid="">Home</a>
+}
+@*Otherwise just create a normal button tag*@
+else
+{
+    <a class="btn w-100" asp-controller="Home" asp-action="Index" asp-route-teamnameid="">Home</a>
+}
 
+@*@foreach (var b in Model.Teams)*@
 @foreach (var b in Model)
 {
-    <a class="btn btn-primary w-100"
-       asp-controller="Home"
-       asp-action="Index"
-       asp-route-teamnameid="@b.TeamId"
-       asp-route-teamname="@b.TeamName"
-       asp-route-pagenum="1">@b.TeamName</a>
-    <br />
+    @*Highlight the team name if it has been selected.*@
+    if (b.TeamName == ViewBag.TeamName)
+    {
+        <a class="btn btn-primary w-100"
+           asp-controller="Home"
+           asp-action="Index"
+           asp-route-teamnameid="@b.TeamId"
+           asp-route-teamname="@b.TeamName"
+           asp-route-pagenum="1">@b.TeamName</a>
+    }
+    @*Otherwise just create a normal button tag*@
+    else
+    {
+        <a class="btn w-100"
+           asp-controller="Home"
+           asp-action="Index"
+           asp-route-teamnameid="@b.TeamId"
+           asp-route-teamname="@b.TeamName"
+           asp-route-pagenum="1">@b.TeamName</a>
+    }
     <br />
 }
